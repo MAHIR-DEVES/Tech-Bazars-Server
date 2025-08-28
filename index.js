@@ -43,6 +43,12 @@ async function run() {
       }
     });
 
+    // get all product
+    app.get('/get-products', async (req, res) => {
+      const result = await productCollection.find().toArray();
+      res.send(result);
+    });
+
     // test route
     app.get('/', (req, res) => {
       res.send('🚀 Server is running fine!');
