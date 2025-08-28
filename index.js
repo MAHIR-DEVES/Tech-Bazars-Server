@@ -49,6 +49,15 @@ async function run() {
       res.send(result);
     });
 
+    // get single product
+    app.get('/single-products/:id', async (req, res) => {
+      const id = req.params.id;
+      const product = await productCollection.findOne({
+        _id: new ObjectId(id),
+      });
+      res.send(product);
+    });
+
     // test route
     app.get('/', (req, res) => {
       res.send('🚀 Server is running fine!');
