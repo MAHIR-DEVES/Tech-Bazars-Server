@@ -58,6 +58,21 @@ async function run() {
       res.send(product);
     });
 
+    // save orders
+    app.post('/orders', async (req, res) => {
+      try {
+        const order = req.body;
+        order.createdAt = new Date();
+        const result = await ordersCollection.insertOne(order);
+        res
+          .status(201)
+          .json({ message: 'Order saved successfully', id: result.insertedId });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+      }
+    });
+
     // test route
     app.get('/', (req, res) => {
       res.send('🚀 Server is running fine!');
